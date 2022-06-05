@@ -40,6 +40,15 @@ function App() {
   const [currentSection, setCurrentSection] = useState<number>(0);
   const scrollContainer = useRef<HTMLDivElement>();
 
+  const navigate = (index: number) => {
+    if (!scrollContainer.current) {
+      return;
+    }
+
+    const headings = document.querySelectorAll("h3");
+    scrollContainer.current.scrollTop = headings[index].offsetTop
+  }
+
   const setCurrentSelection = () => {
     if (!scrollContainer.current) {
       return
@@ -75,7 +84,7 @@ function App() {
             <Grid item xs={3}>
               <MenuList dense>
                 {data.map((item, index) => (
-                  <MenuItem key={index} selected={index === currentSection} onClick={() => setCurrentSection(index)}>
+                  <MenuItem key={index} selected={index === currentSection} onClick={() => navigate(index)}>
                     <ListItemText>{item.title}</ListItemText>
                   </MenuItem>
                 ))}
