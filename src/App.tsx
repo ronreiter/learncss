@@ -4,6 +4,7 @@ import {AppBar, Box, Grid, ListItemText, MenuItem, MenuList} from '@mui/material
 
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import Block from './Block';
+import yaml from 'js-yaml';
 
 const darkTheme = createTheme({
   palette: {
@@ -19,26 +20,30 @@ export interface IBlock {
   options: string[]
 }
 
-const d: IBlock[] = [
-  {
-    title: "Flex Display",
-    description: "Flex display is cool",
-    highlight: 1,
-    html: `<div style="
-  display: {{ option }}
-">
-  <div>Hello</div>
-  <div>World!</div>
-</div>`,
-    options: ['block', 'flex']
-  }
+const TUTORIALS = [
+  "flex.yml",
+  "justify-content.yml",
 ]
-
-const data = [d[0], d[0], d[0], d[0], d[0]]
 
 function App() {
   const [currentSection, setCurrentSection] = useState<number>(0);
+  const [data, setData] = useState<IBlock[]>([]);
   const scrollContainer = useRef<HTMLDivElement>();
+
+
+  useEffect(() => {
+    (async () => {
+      const all = [];
+      for (let i = 0; i < TUTORIALS.length; i++) {
+        const res = await fetch(process.env.PUBLIC_URL + `/tutorial/${TUTORIALS[i]}`);
+        const y = await (await res.blob()).text();
+        const t = yaml.load(y) as IBlock;
+        all.push(t);
+      }
+    setData(all);
+    })();
+
+  }, [])
 
   const navigate = (index: number) => {
     if (!scrollContainer.current) {

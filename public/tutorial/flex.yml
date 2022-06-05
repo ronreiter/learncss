@@ -1,0 +1,13 @@
+title: Flex Display
+description: Flex display is cool
+highlight: 1
+html: |
+  <div style="
+    display: {{ option }}
+  ">
+    <div>Hello</div>
+    <div>World!</div>
+  </div>
+options:
+  - block
+  - flex
