@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import {AppBar, Box, Grid, ListItemText, MenuItem, MenuList} from '@mui/material';
+import {AppBar, Box, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
 
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import Block from './Block';
@@ -21,6 +21,7 @@ export interface IBlock {
 }
 
 const TUTORIALS = [
+  "welcome.yml",
   "flex.yml",
   "justify-content.yml",
 ]
@@ -83,19 +84,22 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
-        <AppBar/>
         <Box>
           <Grid container>
-            <Grid item xs={3}>
+            <Grid item xs={3} sx={{ height: '100vh '}}>
+              <Box sx={{ p: 2 }}>
+                <Typography variant="h5">Learn CSS</Typography>
+                <Typography>Made by Ron Reiter</Typography>
+              </Box>
               <MenuList dense>
                 {data.map((item, index) => (
                   <MenuItem key={index} selected={index === currentSection} onClick={() => navigate(index)}>
-                    <ListItemText>{item.title}</ListItemText>
+                    <ListItemText inset={!!item.html}><Typography variant="body2" sx={{ fontWeight: item.html ? 'inherit': 'bold' }}>{item.title}</Typography></ListItemText>
                   </MenuItem>
                 ))}
               </MenuList>
             </Grid>
-            <Grid item xs={9} >
+            <Grid item xs={9} sx={{ height: '100vh '}}>
               <div ref={scrollContainer as any} style={{ padding: 20, overflow: 'scroll', height: '100vh'}}>
               {data.map((block, index) => (
                 <Block key={index} block={block}/>

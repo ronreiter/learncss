@@ -1,5 +1,7 @@
 title: Justify Content
-description: Justify is cool
+description: |
+  Justify is cool
+  very cool
 highlight: 1
 html: |
   <div style="
