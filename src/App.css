@@ -1,0 +1,43 @@
+.code {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.codeline {
+    font-size: 16px;
+}
+
+
+.codeline.highlight {
+    font-size: 16px;
+    background-color: rgba(255,255,0, 0.5);
+}
+
+
+.codeline span {
+    font-weight: bold;
+    display: inline-block;
+    width: 20px;
+}
+
+.codeline:hover {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.render {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    height: 300px;
+    font-size: 24px;
+}
+
+.render div {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
