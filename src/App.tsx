@@ -1,14 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import {Box, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
+import {Box, CssBaseline, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
 
-import {ThemeProvider, createTheme} from '@mui/material/styles';
+import {createTheme} from '@mui/material/styles';
+import {Experimental_CssVarsProvider as CssVarsProvider} from '@mui/material/styles';
+
 import Block from './Block';
 import yaml from 'js-yaml';
+import ModeSwitcher from './ModeSwitcher';
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: 'dark',
   },
 });
 
@@ -42,7 +45,7 @@ function App() {
         const t = yaml.load(y) as IBlock;
         all.push(t);
       }
-    setData(all);
+      setData(all);
     })();
 
   }, [])
@@ -81,36 +84,74 @@ function App() {
     return () => scrollContainer.current?.removeEventListener('wheel', setCurrentSelection);
   }, [scrollContainer]);
 
+  const menu = (
+    <MenuList dense>
+      {data.map((item, index) => (
+        <MenuItem
+          key={index}
+          selected={index === currentSection}
+          onClick={() => navigate(index)}
+        >
+          <ListItemText inset={!!item.html}>
+            <Typography
+              variant="body2"
+              sx={{fontWeight: item.html ? 'inherit' : 'bold'}}
+            >
+              {item.title}
+            </Typography>
+          </ListItemText>
+        </MenuItem>
+      ))}
+    </MenuList>
+  )
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <CssVarsProvider>
+      <CssBaseline/>
       <div className="App">
         <Box>
           <Grid container>
-            <Grid item xs={3} sx={{ height: '100vh '}}>
+            <Grid item xs={12} md={3} sx={(theme) => ({
+              height: '100vh',
+              [theme.breakpoints.down('md')]: {
+                height: 'inherit',
+              },
+              display: 'flex',
+              flexDirection: 'column',
+            })}>
               <Box sx={{ p: 2 }}>
                 <Typography variant="h5">Learn CSS</Typography>
                 <Typography>Made by Ron Reiter</Typography>
+                <ModeSwitcher sx={{mt: 2}}/>
               </Box>
-              <MenuList dense>
-                {data.map((item, index) => (
-                  <MenuItem key={index} selected={index === currentSection} onClick={() => navigate(index)}>
-                    <ListItemText inset={!!item.html}><Typography variant="body2" sx={{ fontWeight: item.html ? 'inherit': 'bold' }}>{item.title}</Typography></ListItemText>
-                  </MenuItem>
-                ))}
-              </MenuList>
+              <Box sx={(theme) => ({
+                flex: 1,
+                overflow: 'scroll',
+                [theme.breakpoints.down('md')]: {
+                  display: 'none',
+                }
+              })}>
+                {menu}
+              </Box>
             </Grid>
-            <Grid item xs={9} sx={{ height: '100vh', px: 2 }}>
-              <div ref={scrollContainer as any} style={{ overflow: 'scroll', height: '100vh'}}>
-              {data.map((block, index) => (
-                <Block key={index} block={block}/>
-              ))}
+            <Grid item xs={12} md={9} sx={(theme) => ({
+              height: '100vh',
+              px: 2,
+              [theme.breakpoints.down('md')]: {
+                height: 'inherit',
+              },
+              display: 'flex',
+            })}>
+              <div ref={scrollContainer as any} style={{overflow: 'scroll', flex: 1}}>
+                {data.map((block, index) => (
+                  <Block key={index} block={block}/>
+                ))}
               </div>
             </Grid>
           </Grid>
         </Box>
       </div>
-    </ThemeProvider>
+    </CssVarsProvider>
   );
 }
 

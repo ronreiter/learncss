@@ -11,13 +11,13 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
     return (
       <>
         <Typography component="h3" variant="h3" sx={{mt: 2}}>{block.title}</Typography>
-        <Typography variant="body1"><ReactMarkdown children={block.description}/></Typography>
+        <ReactMarkdown children={block.description}/>
       </>
     )
   }
 
   const compiled = block.html.replace("{{ option }}", block.options[currentOption]);
-  const lines = block.html.split("\n");
+  const lines = block.html.trim().split("\n");
 
   const toggleOption = () => {
     setCurrentOption((currentOption + 1) % block.options.length);
