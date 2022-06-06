@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import {AppBar, Box, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
+import {Box, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
 
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import Block from './Block';
@@ -22,6 +22,7 @@ export interface IBlock {
 
 const TUTORIALS = [
   "welcome.yml",
+  "flex-box.yml",
   "flex.yml",
   "justify-content.yml",
 ]
@@ -99,12 +100,12 @@ function App() {
                 ))}
               </MenuList>
             </Grid>
-            <Grid item xs={9} sx={{ height: '100vh '}}>
-              <div ref={scrollContainer as any} style={{ padding: 20, overflow: 'scroll', height: '100vh'}}>
+            <Grid item xs={9} sx={{ height: '100vh', px: 2 }}>
+              <div ref={scrollContainer as any} style={{ overflow: 'scroll', height: '100vh'}}>
               {data.map((block, index) => (
                 <Block key={index} block={block}/>
               ))}
-                </div>
+              </div>
             </Grid>
           </Grid>
         </Box>

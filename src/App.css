@@ -26,6 +26,11 @@
     background-color: rgba(255,255,255,0.5);
 }
 
+
+.codeline.highlight:hover {
+    background-color: rgba(255,255,0,0.7);
+}
+
 .render {
     border: 1px solid gray;
     border-radius: 5px;

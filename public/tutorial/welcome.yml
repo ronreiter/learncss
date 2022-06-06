@@ -1,8 +1,12 @@
 title: Welcome
 description: |
-  Welcome to Learn CSS! This is cool.
-  This is cool.
-  This is cool.
-  This is cool.
-  This is cool.
-  This is cool.
+  Welcome to the interactive Learn CSS tutorial!
+  
+  This course teaches CSS using simple and interactive examples. 
+  Since CSS is a visual language, our mind understands and memorizes the CSS commands better when taught visually. 
+  
+  This tutorial will help you:
+  * Learn the basics of CSS
+  * Understand how each CSS property is used in relation to a child or a parent element
+  * Understand how changing every CSS property affects the visuals of the page
+
