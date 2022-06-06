@@ -2,18 +2,18 @@ import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
 import {Box, Container, CssBaseline, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
 
-import {createTheme} from '@mui/material/styles';
+// import {createTheme} from '@mui/material/styles';
 import {Experimental_CssVarsProvider as CssVarsProvider} from '@mui/material/styles';
 
 import Block from './Block';
 import yaml from 'js-yaml';
 import ModeSwitcher from './ModeSwitcher';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: 'dark',
+//   },
+// });
 
 export interface IBlock {
   title: string,
@@ -77,11 +77,12 @@ function App() {
     if (!scrollContainer.current) {
       return
     }
+    const current = scrollContainer.current;
     console.log("setup")
     // clean up code
-    scrollContainer.current.removeEventListener('wheel', setCurrentSelection);
-    scrollContainer.current.addEventListener('wheel', setCurrentSelection, {passive: true});
-    return () => scrollContainer.current?.removeEventListener('wheel', setCurrentSelection);
+    current.removeEventListener('wheel', setCurrentSelection);
+    current.addEventListener('wheel', setCurrentSelection, {passive: true});
+    return () => current.removeEventListener('wheel', setCurrentSelection);
   }, [scrollContainer]);
 
   const menu = (
