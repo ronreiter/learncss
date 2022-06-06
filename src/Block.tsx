@@ -25,7 +25,7 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
 
   return (
     <>
-      <Grid container columnSpacing={3} rowSpacing={5} sx={{mb: 10}}>
+      <Grid container columnSpacing={3} sx={{mb: 10}}>
         <Grid item xs={12} md={6}>
           <Typography component="h3" variant="h4" sx={{mt: 2}}>{block.title}</Typography>
           <ReactMarkdown children={block.description}/>
