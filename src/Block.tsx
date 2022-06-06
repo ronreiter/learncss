@@ -2,17 +2,21 @@ import {Box, Button, Grid, Typography} from '@mui/material';
 import React, {useState} from 'react';
 import {IBlock} from './App';
 import ReactMarkdown from 'react-markdown'
+import {useColorScheme} from '@mui/material/styles';
 
 export default function Block({block}: { block: IBlock, children?: React.ReactNode }) {
   const [currentOption, setCurrentOption] = useState<number>(0);
 
+  const {mode} = useColorScheme();
 
   if (!block.html) {
     return (
-      <>
+      <Box className="section-text">
         <Typography component="h3" variant="h3" sx={{mt: 2}}>{block.title}</Typography>
-        <ReactMarkdown children={block.description}/>
-      </>
+        <ReactMarkdown children={
+          block.description.replace("{{ theme }}", mode ? mode : 'light')
+        }/>
+      </Box>
     )
   }
 
@@ -25,9 +29,9 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
 
   return (
     <>
-      <Grid container columnSpacing={3} sx={{mb: 10}}>
-        <Grid item xs={12} md={6}>
-          <Typography component="h3" variant="h4" sx={{mt: 2}}>{block.title}</Typography>
+      <Typography component="h3" variant="h4" sx={{mt: 2}}>{block.title}</Typography>
+      <Grid container columnSpacing={3} rowSpacing={1} sx={{mb: 10, display: 'flex'}}>
+        <Grid item xs={12} md={7}>
           <ReactMarkdown children={block.description}/>
 
           <Box sx={{my: 2}}>
@@ -66,8 +70,8 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
             </div>
           </pre>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <div className="render" dangerouslySetInnerHTML={{'__html': compiled}}/>
+        <Grid item xs={12} md={5} sx={{ alignItems: 'stretch'}}>
+          <div style={{ height: '100%'}} className="render" dangerouslySetInnerHTML={{'__html': compiled}}/>
 
         </Grid>
       </Grid>

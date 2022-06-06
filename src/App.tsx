@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import {Box, CssBaseline, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
+import {Box, Container, CssBaseline, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
 
 import {createTheme} from '@mui/material/styles';
 import {Experimental_CssVarsProvider as CssVarsProvider} from '@mui/material/styles';
@@ -119,7 +119,7 @@ function App() {
               display: 'flex',
               flexDirection: 'column',
             })}>
-              <Box sx={{ p: 2 }}>
+              <Box sx={{p: 2}}>
                 <Typography variant="h5">Learn CSS</Typography>
                 <Typography>Made by Ron Reiter</Typography>
                 <ModeSwitcher sx={{mt: 2}}/>
@@ -136,16 +136,17 @@ function App() {
             </Grid>
             <Grid item xs={12} md={9} sx={(theme) => ({
               height: '100vh',
-              px: 2,
               [theme.breakpoints.down('md')]: {
                 height: 'inherit',
               },
               display: 'flex',
             })}>
               <div ref={scrollContainer as any} style={{overflow: 'scroll', flex: 1}}>
-                {data.map((block, index) => (
-                  <Block key={index} block={block}/>
-                ))}
+                <Container maxWidth="md">
+                  {data.map((block, index) => (
+                    <Block key={index} block={block}/>
+                  ))}
+                </Container>
               </div>
             </Grid>
           </Grid>

@@ -2,6 +2,7 @@
     padding: 10px;
     border: 1px solid gray;
     border-radius: 5px;
+    margin: 0;
 }
 
 .codeline {
@@ -45,3 +46,7 @@
     border-radius: 5px;
 }
 
+.section-text img {
+    padding: 40px;
+    width: 100%;
+}
