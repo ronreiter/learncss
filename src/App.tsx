@@ -27,6 +27,7 @@ const TUTORIALS = [
   "welcome.yml",
   "flex-box.yml",
   "flex.yml",
+  "flex-direction.yml",
   "justify-content.yml",
 ]
 

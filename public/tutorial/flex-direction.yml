@@ -1,0 +1,24 @@
+title: Flex Direction
+description: |
+  The Flex Direction property defines the direction of the main axis.
+  
+  * `row` - left to right
+  * `column` - top to bottom
+  * `row-reverse` - right to left
+  * `column-reverse` - bottom to top
+  
+highlight: 2
+html: |
+  <div style="
+    display: flex;
+    flex-direction: {{ option }};
+  ">
+    <div>A</div>
+    <div>B</div>
+    <div>C</div>
+  </div>
+options:
+  - row
+  - column
+  - row-reverse
+  - column-reverse
