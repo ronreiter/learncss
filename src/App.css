@@ -16,7 +16,7 @@
 }
 
 
-.codeline span {
+.codeline.linenumber span {
     font-weight: bold;
     display: inline-block;
     width: 20px;

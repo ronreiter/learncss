@@ -38,7 +38,7 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
             {block.options.map((option, index) => (
               <Button
                 key={index}
-                sx={{mr: 1}}
+                sx={{mr: 1, mb: 1}}
                 variant={currentOption === index ? "contained" : "outlined"}
                 color="primary"
                 onClick={() => setCurrentOption(index)}
@@ -49,7 +49,7 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
 
             <div style={{ width: 20 }}>
             {lines.map((line, index) => (
-              <div key={index} className={`codeline`}>
+              <div key={index} className="codeline linenumber">
                 <span>{index + 1}</span>
               </div>
             ))}

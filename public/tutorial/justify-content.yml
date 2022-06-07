@@ -1,15 +1,20 @@
 title: Justify Content
 description: |
-  Justify is cool
-  very cool
-highlight: 1
+  This property defines how the browser distributes space 
+  between and around children along the main axis.
+highlight: 2
 html: |
   <div style="
-    display: {{ option }}
+    display: flex;
+    justify-content: {{ option }};
   ">
-    <div>Hello</div>
-    <div>World!</div>
+    <div>A</div>
+    <div>B</div>
+    <div>C</div>
   </div>
 options:
-  - block
-  - flex
+  - start
+  - center
+  - space-between
+  - space-around
+  - space-evenly
