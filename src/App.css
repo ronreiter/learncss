@@ -46,6 +46,10 @@
     border-radius: 5px;
 }
 
+.render div:hover {
+    background-color: rgba(220, 220, 220, 0.3);
+}
+
 .section-text img {
     padding: 40px;
     width: 100%;
