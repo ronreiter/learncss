@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import {Box, Container, CssBaseline, Grid, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
+import {Box, Container, CssBaseline, Grid, Link, ListItemText, MenuItem, MenuList, Typography} from '@mui/material';
 
-// import {createTheme} from '@mui/material/styles';
-import {Experimental_CssVarsProvider as CssVarsProvider} from '@mui/material/styles';
+import {useColorScheme} from '@mui/material/styles';
 
 import Block from './Block';
 import yaml from 'js-yaml';
 import ModeSwitcher from './ModeSwitcher';
+import GitHubButton from 'react-github-btn';
 
 // const darkTheme = createTheme({
 //   palette: {
@@ -35,6 +35,7 @@ function App() {
   const [data, setData] = useState<IBlock[]>([]);
   const scrollContainer = useRef<HTMLDivElement>();
 
+  const {mode} = useColorScheme();
 
   useEffect(() => {
     (async () => {
@@ -78,7 +79,6 @@ function App() {
       return
     }
     const current = scrollContainer.current;
-    console.log("setup")
     // clean up code
     current.removeEventListener('wheel', setCurrentSelection);
     current.addEventListener('wheel', setCurrentSelection, {passive: true});
@@ -107,53 +107,78 @@ function App() {
   )
 
   return (
-    <CssVarsProvider>
-      <CssBaseline/>
-      <div className="App">
-        <Box>
-          <Grid container>
-            <Grid item xs={12} md={3} sx={(theme) => ({
-              height: '100vh',
-              [theme.breakpoints.down('md')]: {
-                height: 'inherit',
-              },
-              display: 'flex',
-              flexDirection: 'column',
-            })}>
-              <Box sx={{p: 2}}>
-                <Typography variant="h5">Learn CSS</Typography>
+    <div className="App">
+      <Box>
+        <Grid container>
+          <Grid item xs={12} md={3} sx={(theme) => ({
+            height: '100vh',
+            backgroundColor: mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+            [theme.breakpoints.down('md')]: {
+              height: 'inherit',
+            },
+            display: 'flex',
+            flexDirection: 'column',
+          })}>
+            <Box sx={{p: 2}}>
+              <Box>
+                <Typography variant="h5" sx={{ fontFamily: 'monospace'}}>learn-css.org</Typography>
                 <Typography>Made by Ron Reiter</Typography>
                 <ModeSwitcher sx={{mt: 2}}/>
               </Box>
-              <Box sx={(theme) => ({
-                flex: 1,
-                overflow: 'scroll',
-                [theme.breakpoints.down('md')]: {
-                  display: 'none',
-                }
-              })}>
-                {menu}
+              <Box sx={{mt: 2, display: 'flex'}}>
+                <Box sx={{mr: 1}}>
+                  <GitHubButton
+                    href="https://github.com/ronreiter/learncss/fork"
+                    data-icon="octicon-repo-forked"
+                    data-size="large"
+                    data-color-scheme={mode}
+                    aria-label="Fork ronreiter/learncss on GitHub"
+                  >
+                    Fork
+                  </GitHubButton>
+                </Box>
+                <Box sx={{mr: 1}}>
+                  <GitHubButton
+                    href="https://github.com/ronreiter/learncss"
+                    data-color-scheme={mode}
+                    data-icon="octicon-star"
+                    data-size="large"
+                    data-show-count="true"
+                    aria-label="Star ronreiter/learncss on GitHub"
+                  >
+                    Star
+                  </GitHubButton>
+                </Box>
               </Box>
-            </Grid>
-            <Grid item xs={12} md={9} sx={(theme) => ({
-              height: '100vh',
+            </Box>
+            <Box sx={(theme) => ({
+              flex: 1,
+              overflow: 'scroll',
               [theme.breakpoints.down('md')]: {
-                height: 'inherit',
-              },
-              display: 'flex',
+                display: 'none',
+              }
             })}>
-              <div ref={scrollContainer as any} style={{overflow: 'scroll', flex: 1}}>
-                <Container maxWidth="md">
-                  {data.map((block, index) => (
-                    <Block key={index} block={block}/>
-                  ))}
-                </Container>
-              </div>
-            </Grid>
+              {menu}
+            </Box>
           </Grid>
-        </Box>
-      </div>
-    </CssVarsProvider>
+          <Grid item xs={12} md={9} sx={(theme) => ({
+            height: '100vh',
+            [theme.breakpoints.down('md')]: {
+              height: 'inherit',
+            },
+            display: 'flex',
+          })}>
+            <div ref={scrollContainer as any} style={{overflow: 'scroll', flex: 1}}>
+              <Container maxWidth="md">
+                {data.map((block, index) => (
+                  <Block key={index} block={block}/>
+                ))}
+              </Container>
+            </div>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
   );
 }
 

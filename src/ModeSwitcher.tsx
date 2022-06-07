@@ -20,9 +20,10 @@ const ModeSwitcher = ({sx} : {sx?: SxProps}) => {
 
   return (
     <Button
+      size="small"
       sx={sx}
       onClick={toggleColorMode}
-      variant="outlined"
+      variant="contained"
       startIcon={mode === 'dark' ? <Brightness7/> : <Brightness4/>}
     >
       {mode} mode
