@@ -9,3 +9,6 @@ description: |
 
   To enable Flexbox layout, a parent element must be defined with the CSS property `display: flex`.
   No Flexbox property will work without specifying it, so keep this in mind. 
+
+  In the Flexbox layout, the parent element is called the **container** whereas the children of the element
+  are called the **items**.

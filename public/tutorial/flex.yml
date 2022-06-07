@@ -1,7 +1,7 @@
 title: "Display: Flex"
 description: |
-  Display specifies the type of layout that the component uses. With Flexbox, the parent element must be
-  defined as `display: flex` in order for the children of that element to be affected by the flexbox layout.
+  Display specifies the type of layout that the component uses. With Flexbox, the container element must be
+  defined as `display: flex` in order for the items of that element to be affected by the flexbox layout.
   
   Note that this property does **not** affect the parent element at all, only the children.
 

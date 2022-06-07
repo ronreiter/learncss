@@ -1,7 +1,6 @@
 title: Justify Content
 description: |
-  This property defines how the browser distributes space 
-  between and around children along the main axis.
+  This property defines how the browser distributes space between and around items along the main axis.
 highlight: 2
 html: |
   <div style="
