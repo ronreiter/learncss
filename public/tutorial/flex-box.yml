@@ -5,7 +5,7 @@ description: |
   accross the main axis.
   
   In this example, the main axis is __horizontal__ because the direction of the main axis goes from left to right.
-  ![Flexbox](/tutorial/{{ theme }}/basic.png)
+  ![Flexbox](/tutorial/{{ theme }}/flexbox.png)
 
   To enable Flexbox layout, a parent element must be defined with the CSS property `display: flex`.
   No Flexbox property will work without specifying it, so keep this in mind. 
