@@ -1,12 +1,7 @@
 title: Flex Direction
 description: |
   The Flex Direction property defines the direction of the main axis.
-  
-  * `row` - left to right
-  * `column` - top to bottom
-  * `row-reverse` - right to left
-  * `column-reverse` - bottom to top
-  
+
 highlight: 2
 html: |
   <div style="
@@ -18,7 +13,14 @@ html: |
     <div>C</div>
   </div>
 options:
-  - row
-  - column
-  - row-reverse
-  - column-reverse
+  - name: row
+    tooltip: Left to right
+
+  - name: column
+    tooltip: Top to bottom
+
+  - name: row-reverse
+    tooltip: Right to left
+
+  - name: column-reverse
+    tooltip: Bottom to top

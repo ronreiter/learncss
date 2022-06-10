@@ -1,4 +1,4 @@
-import {Box, Button, Grid, Typography} from '@mui/material';
+import {Box, Button, Grid, Tooltip, Typography} from '@mui/material';
 import React, {useState} from 'react';
 import {IBlock} from './App';
 import ReactMarkdown from 'react-markdown'
@@ -20,7 +20,7 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
     )
   }
 
-  const compiled = block.html.replace("{{ option }}", block.options[currentOption]);
+  const compiled = block.html.replace("{{ option }}", block.options[currentOption].name);
   const lines = block.html.trim().split("\n");
 
   const toggleOption = () => {
@@ -36,18 +36,22 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
 
           <Box sx={{my: 2}}>
             {block.options.map((option, index) => (
-              <Button
-                key={index}
-                sx={{mr: 1, mb: 1}}
-                variant={currentOption === index ? "contained" : "outlined"}
-                color="primary"
-                onClick={() => setCurrentOption(index)}
-              >{option}</Button>
+              <Tooltip title={option.tooltip ?? ''}>
+                <Button
+                  key={index}
+                  sx={{mr: 1, mb: 1}}
+                  variant={currentOption === index ? "contained" : "outlined"}
+                  color="primary"
+                  onClick={() => setCurrentOption(index)}
+                >
+                  {option.name}
+                </Button>
+              </Tooltip>
             ))}
           </Box>
           <pre className="code" style={{display: 'flex', alignItems: 'stretch'}}>
 
-            <div style={{ width: 20 }}>
+            <div style={{width: 20}}>
             {lines.map((line, index) => (
               <div key={index} className="codeline linenumber">
                 <span>{index + 1}</span>
@@ -55,13 +59,13 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
             ))}
             </div>
 
-            <div style={{ flex: 1 }}>
+            <div style={{flex: 1}}>
             {lines.map((line, index) => (
               <div key={index} className={`codeline ${index === block.highlight ? "highlight" : ""}`}>
                 {line.includes("{{ option }}") ? (
                   <>
                     {line.split("{{ option }}")[0]}
-                    <span onClick={toggleOption} style={{ cursor: 'pointer' }}>{block.options[currentOption]}</span>
+                    <span onClick={toggleOption} style={{cursor: 'pointer'}}>{block.options[currentOption].name}</span>
                     {line.split("{{ option }}")[1]}
                   </>
                 ) : line}
@@ -70,8 +74,8 @@ export default function Block({block}: { block: IBlock, children?: React.ReactNo
             </div>
           </pre>
         </Grid>
-        <Grid item xs={12} md={5} sx={{ alignItems: 'stretch'}}>
-          <div style={{ height: '100%'}} className="render" dangerouslySetInnerHTML={{'__html': compiled}}/>
+        <Grid item xs={12} md={5} sx={{alignItems: 'stretch'}}>
+          <div style={{height: '100%'}} className="render" dangerouslySetInnerHTML={{'__html': compiled}}/>
 
         </Grid>
       </Grid>

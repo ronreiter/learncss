@@ -12,10 +12,20 @@ html: |
     <div>C</div>
   </div>
 options:
-  - start
-  - center
-  - end
-  - space-between
-  - space-around
-  - space-evenly
-  - stretch
+  - name: start
+    tooltip: Pack items from the start
+
+  - name: center
+    tooltip: Pack items around the center
+
+  - name: end
+    tooltip: Pack items from the end
+
+  - name: space-between
+    tooltip: Distribute items evenly. The first item is flush with the start, the last is flush with the end
+
+  - name: space-around
+    tooltip: Distribute items evenly. Items have a half-size space on either end
+
+  - name: space-evenly
+    tooltip: Distribute items evenly. Items have equal space around them

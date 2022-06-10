@@ -7,7 +7,7 @@ import {useColorScheme} from '@mui/material/styles';
 import Block from './Block';
 import yaml from 'js-yaml';
 import ModeSwitcher from './ModeSwitcher';
-import GitHubButton from 'react-github-btn';
+import GitHubButtons from './GitHubButtons';
 
 // const darkTheme = createTheme({
 //   palette: {
@@ -20,33 +20,31 @@ export interface IBlock {
   description: string,
   highlight: number,
   html: string,
-  options: string[]
+  options: {name: string, tooltip: string}[]
 }
 
-const TUTORIALS = [
-  "welcome.yml",
-  "flex-box.yml",
-  "flex.yml",
-  "flex-direction.yml",
-  "justify-content.yml",
-]
+async function readYaml<T>(path: string) {
+  const res = await fetch(path);
+  const y = await (await res.blob()).text();
+  return yaml.load(y) as T;
+}
 
 function App() {
   const [currentSection, setCurrentSection] = useState<number>(0);
   const [data, setData] = useState<IBlock[]>([]);
-  const scrollContainer = useRef<HTMLDivElement>();
+  const scrollContainer = useRef<HTMLDivElement>(null);
 
   const {mode} = useColorScheme();
 
   useEffect(() => {
     (async () => {
-      const all = [];
-      for (let i = 0; i < TUTORIALS.length; i++) {
-        const res = await fetch(process.env.PUBLIC_URL + `/tutorial/${TUTORIALS[i]}`);
-        const y = await (await res.blob()).text();
-        const t = yaml.load(y) as IBlock;
-        all.push(t);
-      }
+      const { pages } = await readYaml<{pages: string[]}>(process.env.PUBLIC_URL + `/tutorial/index.yml`);
+
+      // get pages in parallel
+      const all = await Promise.all(
+        pages.map((page: string) => readYaml<IBlock>(process.env.PUBLIC_URL + `/tutorial/${page}`))
+      );
+
       setData(all);
     })();
 
@@ -126,31 +124,7 @@ function App() {
                 <Typography>Made by Ron Reiter</Typography>
                 <ModeSwitcher sx={{mt: 2}}/>
               </Box>
-              <Box sx={{mt: 2, display: 'flex'}}>
-                <Box sx={{mr: 1}}>
-                  <GitHubButton
-                    href="https://github.com/ronreiter/learncss/fork"
-                    data-icon="octicon-repo-forked"
-                    data-size="large"
-                    data-color-scheme={mode}
-                    aria-label="Fork ronreiter/learncss on GitHub"
-                  >
-                    Fork
-                  </GitHubButton>
-                </Box>
-                <Box sx={{mr: 1}}>
-                  <GitHubButton
-                    href="https://github.com/ronreiter/learncss"
-                    data-color-scheme={mode}
-                    data-icon="octicon-star"
-                    data-size="large"
-                    data-show-count="true"
-                    aria-label="Star ronreiter/learncss on GitHub"
-                  >
-                    Star
-                  </GitHubButton>
-                </Box>
-              </Box>
+              <GitHubButtons mode={mode}/>
             </Box>
             <Box sx={(theme) => ({
               flex: 1,
@@ -169,7 +143,7 @@ function App() {
             },
             display: 'flex',
           })}>
-            <div ref={scrollContainer as any} style={{overflow: 'scroll', flex: 1}}>
+            <div ref={scrollContainer} style={{overflow: 'scroll', flex: 1}}>
               <Container maxWidth="md">
                 {data.map((block, index) => (
                   <Block key={index} block={block}/>

@@ -14,5 +14,8 @@ html: |
     <div>World!</div>
   </div>
 options:
-  - block
-  - flex
+  - name: block
+    tooltip: Default display mode. Each element takes full width and is stacked line by line.
+
+  - name: flex
+    tooltip: Flexbox mode. Defaults to flex direction from left to right.
